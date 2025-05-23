@@ -38,21 +38,24 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         title: Text("Трекер расходов"),
         actions: [Icon(Icons.add)],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            color: Colors.amber,
-            child: Text(
-              "Инфографика", 
-              style: TextStyle(fontSize: 35,),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: double.infinity,
+              color: Colors.amber,
+              child: Text(
+                "Инфографика", 
+                style: TextStyle(fontSize: 35,),
+              ),
             ),
-          ),
-          // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
-          ExpenseList(expenses: _expenses),
-        ],
+            // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
+            ExpenseList(expenses: _expenses),
+          ],
+        ),
       ),
     );
   }
