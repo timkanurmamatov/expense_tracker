@@ -1,4 +1,5 @@
-import 'package:expense_tracker/expense_model.dart';
+import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesScreen extends StatefulWidget {
@@ -9,11 +10,11 @@ class ExpensesScreen extends StatefulWidget {
 }
 
 class _ExpensesScreenState extends State<ExpensesScreen> {
-  late List<ExpenseModel> expenses;
+  late List<ExpenseModel> _expenses;
 
   @override
   void initState() {
-    expenses = [
+    _expenses = [
       ExpenseModel(
         title: "Курсы Flutter",
         amount: 50,
@@ -44,10 +45,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           Container(
             width: double.infinity,
             color: Colors.amber,
-            child: Text("Инфографика"),
+            child: Text(
+              "Инфографика", 
+              style: TextStyle(fontSize: 35,),
+            ),
           ),
           // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
-          Container(color: Colors.blueAccent, child: Text("Список расходов")),
+          ExpenseList(expenses: _expenses),
         ],
       ),
     );
