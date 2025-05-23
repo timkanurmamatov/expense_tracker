@@ -35,20 +35,39 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Трекер расходов"),
-        actions: [Icon(Icons.add)],
+        centerTitle: true,
+        actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            color: Colors.amber,
-            child: Text("Инфографика"),
-          ),
-          // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
-          Container(color: Colors.blueAccent, child: Text("Список расходов")),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: double.infinity,
+              height: 300,
+              //alignment: Alignment.center,
+              color: Colors.amber,
+              child: Text("Инфографика"),
+            ),
+            // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
+            Container(
+              width: double.infinity,
+              height: 300,
+              color: Colors.blueAccent,
+              child: Expanded(
+              child: ListView.builder(
+                itemCount: expenses.length,
+                itemBuilder:
+                    (context, index) =>
+                        ListTile(title: Text('hello'), leading: Text('wellcome')),
+              ),
+            ),
+            ),
+            
+          ],
+        ),
       ),
     );
   }
