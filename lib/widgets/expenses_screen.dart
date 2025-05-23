@@ -1,4 +1,5 @@
-import 'package:expense_tracker/expense_model.dart';
+import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesScreen extends StatefulWidget {
@@ -56,16 +57,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               width: double.infinity,
               height: 300,
               color: Colors.blueAccent,
-              child: Expanded(
-              child: ListView.builder(
-                itemCount: expenses.length,
-                itemBuilder:
-                    (context, index) =>
-                        ListTile(title: Text('hello'), leading: Text('wellcome')),
-              ),
+              child: Expanded(child: ExpensesList(expenses: expenses)),
             ),
-            ),
-            
           ],
         ),
       ),
