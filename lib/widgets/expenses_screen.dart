@@ -1,5 +1,6 @@
 import 'package:expense_tracker/models/expense_model.dart';
-import 'package:expense_tracker/widgets/expenses_list.dart';
+import 'package:expense_tracker/widgets/expense_list.dart';
+//import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:flutter/material.dart';
 
 class ExpensesScreen extends StatefulWidget {
@@ -10,11 +11,11 @@ class ExpensesScreen extends StatefulWidget {
 }
 
 class _ExpensesScreenState extends State<ExpensesScreen> {
-  late List<ExpenseModel> expenses;
+  late List<ExpenseModel> _expenses;
 
   @override
   void initState() {
-    expenses = [
+    _expenses = [
       ExpenseModel(
         title: "Курсы Flutter",
         amount: 50,
@@ -40,7 +41,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -48,7 +49,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             Container(
               width: double.infinity,
               height: 300,
-              //alignment: Alignment.center,
               color: Colors.amber,
               child: Text("Инфографика"),
             ),
@@ -57,7 +57,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               width: double.infinity,
               height: 300,
               color: Colors.blueAccent,
-              child: Expanded(child: ExpensesList(expenses: expenses)),
+              child: Expanded(child: ExpenseList(expenses: _expenses)),
             ),
           ],
         ),
