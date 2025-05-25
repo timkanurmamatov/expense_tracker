@@ -17,7 +17,7 @@ class ExpenseListTile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // title
+            
             Text(
               expense.title, 
               style: TextStyle(fontSize: 20),
