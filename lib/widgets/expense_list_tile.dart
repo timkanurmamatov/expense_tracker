@@ -23,7 +23,7 @@ class ExpenseListTile extends StatelessWidget {
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 12),
-            // Row
+            
             // [amount, *spacer, category, date]
             Row(
               children: [
