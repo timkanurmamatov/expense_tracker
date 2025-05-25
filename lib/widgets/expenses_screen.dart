@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/expense_add.dart';
 import 'package:expense_tracker/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
 
@@ -35,8 +36,19 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigoAccent,
         title: Text("Трекер расходов"),
-        actions: [Icon(Icons.add)],
+        centerTitle: true,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _buildModal,
+            style: ButtonStyle(
+              foregroundColor: WidgetStateProperty.all(Colors.white),
+            ),
+          ),
+          SizedBox(width: 10),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -47,16 +59,27 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             Container(
               width: double.infinity,
               color: Colors.amber,
-              child: Text(
-                "Инфографика", 
-                style: TextStyle(fontSize: 35,),
-              ),
+              child: Text("Инфографика", style: TextStyle(fontSize: 35)),
             ),
-            // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
             ExpenseList(expenses: _expenses),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _buildModal,
+        child: const Icon(Icons.add),
+      ),
     );
+  }
+
+  void _buildModal() {
+    setState(() {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return ExpenseAdd();
+        },
+      );
+    });
   }
 }
