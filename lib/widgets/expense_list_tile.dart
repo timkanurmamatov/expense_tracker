@@ -26,23 +26,27 @@ class ExpenseListTile extends StatelessWidget {
             
             // [amount, *spacer, category, date]
             Row(
-              children: [
-                // amount
-                // todo: Заменить KGS на иконку из интернета (Image.asset - .png)
-                Text("KGS ${expense.amount}"),
+  children: [
+    Image.network(
+      'https://thumbs.dreamstime.com/b/kgs-letter-initial-logo-design-vector-illustration-236631128.jpg',
+      width: 50,
+      height: 50,
+    
+    ),
 
-                // spacer
-                Spacer(),
+    SizedBox(width: 8),
 
-                // icon -> category
-                Icon(Icons.access_alarm),
+    Text("${expense.amount}"),
+    
+    Spacer(),
 
-                SizedBox(width: 12),
-                
-                // date
-                Text(expense.date.toString()),
-              ],
-            ),
+    Icon(Icons.access_alarm),
+
+    SizedBox(width: 12),
+
+    Text(expense.date.toString()),
+  ],
+),
           ],
         ),
       ),
