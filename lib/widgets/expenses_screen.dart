@@ -37,6 +37,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigoAccent,
+        foregroundColor: Colors.white,
         title: Text("Трекер расходов"),
         centerTitle: true,
         actions: [
