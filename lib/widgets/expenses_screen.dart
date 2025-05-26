@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/add_expense_form.dart';
 import 'package:expense_tracker/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
 
@@ -48,7 +49,20 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Трекер расходов"),
-        actions: [Icon(Icons.add)],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add), 
+            onPressed: (){
+              showModalBottomSheet(
+                isScrollControlled: true,
+                context: context, 
+                builder: (context) {
+                  return AddExpenseForm();
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
