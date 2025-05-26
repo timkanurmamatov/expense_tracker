@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
@@ -22,4 +23,19 @@ enum Category {
   travel,
   leisure,
   work,
+}
+
+extension CategoryIconExtension on Category {
+  IconData get icon {
+    switch (this) {
+      case Category.food:
+        return Icons.restaurant;
+      case Category.leisure:
+        return Icons.movie;
+      case Category.travel:
+        return Icons.airplanemode_active;
+      case Category.work:
+        return Icons.work;
+    }
+  }
 }

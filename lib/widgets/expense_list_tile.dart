@@ -1,16 +1,18 @@
 // tile - плитка
 import 'package:expense_tracker/models/expense_model.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ExpenseListTile extends StatelessWidget {
   final ExpenseModel expense;
+  final Color color;
 
-  const ExpenseListTile({super.key, required this.expense});
+  const ExpenseListTile({super.key, required this.expense, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: const Color.fromARGB(255, 165, 200, 216),
+      color: color,
       elevation: 10,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -35,17 +37,22 @@ class ExpenseListTile extends StatelessWidget {
                 Spacer(),
 
                 // icon -> category
-                Icon(Icons.access_alarm),
+                Icon(expense.category.icon),
 
                 SizedBox(width: 12),
                 
                 // date
-                Text(expense.date.toString()),
+                Text(getFormattedDate(expense.date)),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  String getFormattedDate(DateTime date){
+    var format = DateFormat('dd.MM.yyyy');
+   return format.format(date);
   }
 }

@@ -27,6 +27,18 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         date: DateTime.now(),
         category: Category.leisure,
       ),
+      ExpenseModel(
+        title: "Turkey",
+        amount: 15.55,
+        date: DateTime.now(),
+        category: Category.travel,
+      ),
+      ExpenseModel(
+        title: "Burger",
+        amount: 15.55,
+        date: DateTime.now(),
+        category: Category.food,
+      ),
     ];
     super.initState();
   }
@@ -52,8 +64,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 style: TextStyle(fontSize: 35,),
               ),
             ),
-            // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
-            ExpenseList(expenses: _expenses),
+            Expanded(child: ExpenseList(expenses: _expenses)),
           ],
         ),
       ),
