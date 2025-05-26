@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/add_expense_form.dart';
 import 'package:expense_tracker/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,18 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         date: DateTime.now(),
         category: Category.leisure,
       ),
+      ExpenseModel(
+        title: "Turkey",
+        amount: 15.55,
+        date: DateTime.now(),
+        category: Category.travel,
+      ),
+      ExpenseModel(
+        title: "Burger",
+        amount: 15.55,
+        date: DateTime.now(),
+        category: Category.food,
+      ),
     ];
     super.initState();
   }
@@ -36,7 +49,20 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Трекер расходов"),
-        actions: [Icon(Icons.add)],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add), 
+            onPressed: (){
+              showModalBottomSheet(
+                isScrollControlled: true,
+                context: context, 
+                builder: (context) {
+                  return AddExpenseForm();
+                },
+              );
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -52,8 +78,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 style: TextStyle(fontSize: 35,),
               ),
             ),
-            // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
-            ExpenseList(expenses: _expenses),
+            Expanded(child: ExpenseList(expenses: _expenses)),
           ],
         ),
       ),
