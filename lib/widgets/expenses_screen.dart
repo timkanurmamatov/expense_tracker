@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/expense_add.dart';
 import 'package:expense_tracker/widgets/expense_list.dart';
 //import 'package:expense_tracker/widgets/expenses_list.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +37,21 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigoAccent,
+        foregroundColor: Colors.white,
         title: Text("Трекер расходов"),
         centerTitle: true,
-        actions: [IconButton(icon: Icon(Icons.add), onPressed: () {})],
+
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: _buildModal,
+            style: ButtonStyle(
+              foregroundColor: WidgetStateProperty.all(Colors.white),
+            ),
+          ),
+          SizedBox(width: 10),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
@@ -50,18 +63,28 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               width: double.infinity,
               height: 300,
               color: Colors.amber,
-              child: Text("Инфографика"),
+
+              child: Text("Инфографика", style: TextStyle(fontSize: 35)),
             ),
-            // todo: Заменить контейнер снизу списком расходов из [expenses] в виде виджетов Text
-            Container(
-              width: double.infinity,
-              height: 300,
-              color: Colors.blueAccent,
-              child: Expanded(child: ExpenseList(expenses: _expenses)),
-            ),
+            ExpenseList(expenses: _expenses),
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _buildModal,
+        child: const Icon(Icons.add),
+      ),
     );
+  }
+
+  void _buildModal() {
+    setState(() {
+      showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return ExpenseAdd();
+        },
+      );
+    });
   }
 }
