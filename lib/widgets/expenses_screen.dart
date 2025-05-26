@@ -29,6 +29,18 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         date: DateTime.now(),
         category: Category.leisure,
       ),
+      ExpenseModel(
+        title: "Курсы Flutter",
+        amount: 50,
+        date: DateTime.now(),
+        category: Category.travel,
+      ),
+      ExpenseModel(
+        title: "Кинотеатр",
+        amount: 15.55,
+        date: DateTime.now(),
+        category: Category.food,
+      ),
     ];
     super.initState();
   }
@@ -61,12 +73,12 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           children: [
             Container(
               width: double.infinity,
-              height: 300,
+              height: 250,
               color: Colors.amber,
 
               child: Text("Инфографика", style: TextStyle(fontSize: 35)),
             ),
-            ExpenseList(expenses: _expenses),
+            Expanded(child: ExpenseList(expenses: _expenses)),
           ],
         ),
       ),
@@ -80,6 +92,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   void _buildModal() {
     setState(() {
       showModalBottomSheet(
+        isDismissible: true,
+        isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return ExpenseAdd();

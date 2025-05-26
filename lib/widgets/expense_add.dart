@@ -14,7 +14,7 @@ class _ExpenseAddState extends State<ExpenseAdd> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
       width: double.infinity,
       child: Column(
         spacing: 20,
@@ -26,9 +26,10 @@ class _ExpenseAddState extends State<ExpenseAdd> {
           ),
           //Expense sumary and date
           Row(
+           
             children: [
               SizedBox(
-                width: 150,
+                width: 100,
                 child: TextField(
                   controller: _controllerSumary,
                   decoration: InputDecoration(labelText: 'Сумма'),
@@ -45,8 +46,8 @@ class _ExpenseAddState extends State<ExpenseAdd> {
             children: [
               DropdownButton(items: null, onChanged: null),
               Spacer(),
-              ElevatedButton(onPressed: () {}, child: Text('Save')),
-              ElevatedButton(onPressed: () {}, child: Text('Save')),
+              TextButton(onPressed: () {}, child: Text('Отмена')),
+              ElevatedButton(onPressed: () {}, child: Text('Сохранить')),
             ],
           ),
         ],

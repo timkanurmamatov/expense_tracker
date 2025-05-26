@@ -5,30 +5,30 @@ import 'package:intl/intl.dart';
 
 class ExpenseListTile extends StatelessWidget {
   final ExpenseModel expense;
+  final Color color;
 
-  const ExpenseListTile({super.key, required this.expense});
+  const ExpenseListTile({
+    super.key,
+    required this.expense,
+    required this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final date = expense.date;
-    final formattedDate = DateFormat('dd.MM.yyyy').format(date);
+    //final DateTime date = expense.date;
+    final String formattedDate = DateFormat.yMd().format(expense.date);
     return Card(
-      color: const Color.fromARGB(255, 161, 248, 217),
+      color: color,
       elevation: 10,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // title
             Text(expense.title, style: TextStyle(fontSize: 20)),
             SizedBox(height: 12),
-            // Row
-            // [amount, *spacer, category, date]
             Row(
               children: [
-                // amount
-                // todo: Заменить KGS на иконку из интернета (Image.asset - .png)
                 Image.asset(
                   'assets/images/Kyrgyzstan.png',
                   height: 25,
@@ -36,17 +36,9 @@ class ExpenseListTile extends StatelessWidget {
                 ),
                 SizedBox(width: 5),
                 Text('KGS ${expense.amount}'),
-                
-
-                // spacer
                 Spacer(),
-
-                // icon -> category
-                Icon(Icons.date_range),
-
+                Icon(expense.category.icon),
                 SizedBox(width: 12),
-
-                // date
                 Text(formattedDate),
               ],
             ),

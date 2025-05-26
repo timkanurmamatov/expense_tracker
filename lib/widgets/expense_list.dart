@@ -9,18 +9,18 @@ class ExpenseList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-        // for(ExpenseModel e in expenses){
-        //   e
-        // }
-        children: expenses.map(
-          (e) { // e -> expenses[i]
-            return ExpenseListTile(expense: e);
-          },
-        ).toList(),
-      );
+    return ListView.separated(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+      itemCount: expenses.length,
+      itemBuilder: (context, index) {
+        return ExpenseListTile(
+          expense: expenses[index],
+          color: index % 2 == 0 ? Colors.amberAccent : Colors.deepOrangeAccent,
+        );
+      },
+      separatorBuilder: (BuildContext context, int index) {
+        return SizedBox(height: 10);
+      },
+    );
   }
 }
-
-
-// Text(expenses[index].title, style: TextStyle(fontSize: 35))
