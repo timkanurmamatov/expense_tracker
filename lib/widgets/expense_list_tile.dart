@@ -24,7 +24,7 @@ class ExpenseListTile extends StatelessWidget {
             ),
             SizedBox(height: 12),
             
-            // [amount, *spacer, category, date]
+         
             Row(
   children: [
     Image.network(
