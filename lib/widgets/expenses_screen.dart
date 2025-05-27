@@ -72,10 +72,14 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 12),
               width: double.infinity,
               height: 250,
-              color: Colors.amber,
-
+              decoration: BoxDecoration(
+                color: Colors.lightBlueAccent,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              alignment: Alignment.center,
               child: Text("Инфографика", style: TextStyle(fontSize: 35)),
             ),
             Expanded(child: ExpenseList(expenses: _expenses)),
@@ -92,8 +96,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   void _buildModal() {
     setState(() {
       showModalBottomSheet(
-        isDismissible: true,
-        isScrollControlled: true,
+        //isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
           return ExpenseAdd();
