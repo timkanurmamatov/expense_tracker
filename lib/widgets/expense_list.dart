@@ -10,11 +10,9 @@ class ExpenseList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        // for(ExpenseModel e in expenses){
-        //   e
-        // }
+       
         children: expenses.map(
-          (e) { // e -> expenses[i]
+          (e) { 
             return ExpenseListTile(expense: e);
           },
         ).toList(),
@@ -23,4 +21,3 @@ class ExpenseList extends StatelessWidget {
 }
 
 
-// Text(expenses[index].title, style: TextStyle(fontSize: 35))
