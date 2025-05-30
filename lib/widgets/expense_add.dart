@@ -1,3 +1,4 @@
+import 'package:expense_tracker/models/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -13,9 +14,9 @@ class _ExpenseAddState extends State<ExpenseAdd> {
   final TextEditingController _controllerSumary = TextEditingController();
   DateTime? date;
   String dateUser = 'Дата не выбрана';
-  bool test = true;
-  String testDown = 'test 1';
-  List<String> testDrop = ['test 1', 'test 2', 'test 3'];
+  String testDown = 'food';
+  List<String> testDrop = ['food', 'travel', 'leisure', 'work'];
+  // List<ExpenseModel> expenseAdd = [];
 
   Future<void> _dateTime() async {
     final DateTime? picked = await showDatePicker(
@@ -34,16 +35,38 @@ class _ExpenseAddState extends State<ExpenseAdd> {
     });
   }
 
-  // void _saveExpense() {
-  //   if (test == true) {
-  //     //save data
+  // @override
+  // void initState() {
+  //   String test = _controllerSumary.text;
+  //   double testParse = double.parse(test);
+  //   expenseAdd = [
+  //     ExpenseModel(
+  //       title: _controllerName.text,
+  //       amount: testParse,
+  //       category: _testCategory()!,
+  //       date: date!,
+  //     ),
+  //   ];
+  //   super.initState();
+  // }
+
+  // Category? _testCategory() {
+  //   switch (testDown) {
+  //     case 'food':
+  //       return Category.food;
+  //     case 'travel':
+  //       return Category.travel;
+  //     case 'leisure':
+  //       return Category.leisure;
+  //     case 'work':
+  //       return Category.work;
   //   }
   // }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
       width: double.infinity,
       child: Column(
         spacing: 20,
@@ -69,6 +92,7 @@ class _ExpenseAddState extends State<ExpenseAdd> {
                 icon: Icon(Icons.calendar_month),
                 onPressed: () {
                   _dateTime();
+                  //print(expenseAdd);
                 },
               ),
             ],
@@ -90,6 +114,20 @@ class _ExpenseAddState extends State<ExpenseAdd> {
                   });
                 },
               ),
+              //////////////////////////
+              // DropdownButton(
+              //   value: testIcon,
+              //   icon: Icon(Icons.arrow_drop_down),
+              //   items:
+              //       testIcon.map((list) {
+              //         return DropdownMenuItem(value: list, child: Icon(list));
+              //       }).toList(),
+              //   onChanged: (listCategory) {
+              //     setState(() {
+              //       testIcon = listCategory!;
+              //     });
+              //   },
+              // ),
               Spacer(),
               TextButton(
                 onPressed: () {
