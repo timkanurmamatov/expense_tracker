@@ -25,7 +25,7 @@ enum Category {
   work,
 }
 
-extension CategoryIconExtension on Category {
+extension CategoryExtension on Category {
   IconData get icon {
     switch (this) {
       case Category.food:
@@ -36,6 +36,19 @@ extension CategoryIconExtension on Category {
         return Icons.airplanemode_active;
       case Category.work:
         return Icons.work;
+    }
+  }
+
+  String get title {
+    switch (this) {
+      case Category.food:
+        return "Еда";
+      case Category.leisure:
+        return "Развлечения";
+      case Category.travel:
+        return "Путешествия";
+      case Category.work:
+        return "Работа";
     }
   }
 }

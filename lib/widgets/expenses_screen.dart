@@ -57,7 +57,11 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 isScrollControlled: true,
                 context: context, 
                 builder: (context) {
-                  return AddExpenseForm();
+                  return AddExpenseForm(
+                    // onSubmit: (ExpenseModel model){
+                    //    setState((){...});
+                    // }
+                  );
                 },
               );
             },
