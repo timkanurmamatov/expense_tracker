@@ -33,7 +33,10 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   }
 
   void _removeExpense(ExpenseModel expense) {
+    // Записывает индекс с которого удалим расход, чтобы если что отменить это действие
     final int expenseIndex = _expenses.indexOf(expense);
+
+    // Удаляем расход
     setState(() {
       _expenses.remove(expense);
     });
@@ -48,6 +51,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           label: "Отменить", 
           onPressed: (){
             setState(() {
+              // При нажатии на 'Отменить', возвращаем удаленный расход в ту же позицию (ранее записанную)
               _expenses.insert(expenseIndex, expense);
             });
           },

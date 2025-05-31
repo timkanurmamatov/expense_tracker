@@ -5,15 +5,12 @@ import 'package:intl/intl.dart';
 
 class ExpenseListTile extends StatelessWidget {
   final ExpenseModel expense;
-  final Color color;
 
-  const ExpenseListTile({super.key, required this.expense, required this.color});
+  const ExpenseListTile({super.key, required this.expense});
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: color,
-      elevation: 10,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: Column(
@@ -22,7 +19,7 @@ class ExpenseListTile extends StatelessWidget {
             // title
             Text(
               expense.title, 
-              style: TextStyle(fontSize: 20),
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             SizedBox(height: 12),
             // Row

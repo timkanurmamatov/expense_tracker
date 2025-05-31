@@ -19,6 +19,7 @@ class ExpenseList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Dismissible(
           key: ValueKey(expenses[index]),
+          direction: DismissDirection.endToStart,
           onDismissed: (direction) {
             onRemoveExpense(expenses[index]);
           },
@@ -32,9 +33,6 @@ class ExpenseList extends StatelessWidget {
           ),
           child: ExpenseListTile(
             expense: expenses[index],
-            color: index % 2 == 0
-            ? const Color.fromARGB(255, 165, 200, 216)
-            : const Color.fromARGB(255, 198, 165, 216),
           ),
         );
       },
