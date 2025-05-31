@@ -22,26 +22,38 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         date: DateTime.now(),
         category: Category.work,
       ),
-      ExpenseModel(
-        title: "Кинотеатр",
-        amount: 15.55,
-        date: DateTime.now(),
-        category: Category.leisure,
-      ),
-      ExpenseModel(
-        title: "Turkey",
-        amount: 15.55,
-        date: DateTime.now(),
-        category: Category.travel,
-      ),
-      ExpenseModel(
-        title: "Burger",
-        amount: 15.55,
-        date: DateTime.now(),
-        category: Category.food,
-      ),
     ];
     super.initState();
+  }
+
+  void _addExpense(ExpenseModel expense) {
+    setState(() {
+      _expenses.add(expense);
+    });
+  }
+
+  void _removeExpense(ExpenseModel expense) {
+    final int expenseIndex = _expenses.indexOf(expense);
+    setState(() {
+      _expenses.remove(expense);
+    });
+
+    // ScaffoldMessenger.of(context).clearSnackBars(); // если нужно очистить предыдущие снек бары
+    
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text("Расходы удалены."),
+        duration: Duration(seconds: 3),
+        action: SnackBarAction(
+          label: "Отменить", 
+          onPressed: (){
+            setState(() {
+              _expenses.insert(expenseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
@@ -58,9 +70,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
                 context: context, 
                 builder: (context) {
                   return AddExpenseForm(
-                    // onSubmit: (ExpenseModel model){
-                    //    setState((){...});
-                    // }
+                    onSubmit: _addExpense,
                   );
                 },
               );
@@ -79,10 +89,17 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               color: Colors.amber,
               child: Text(
                 "Инфографика", 
-                style: TextStyle(fontSize: 35,),
+                style: TextStyle(fontSize: 35),
               ),
             ),
-            Expanded(child: ExpenseList(expenses: _expenses)),
+            Expanded(
+              child: _expenses.isEmpty 
+                ? Center(child: Text("Расходы не найдены. Начните добавлять")) 
+                : ExpenseList(
+                  expenses: _expenses,
+                  onRemoveExpense: _removeExpense,
+                ),
+            ),
           ],
         ),
       ),

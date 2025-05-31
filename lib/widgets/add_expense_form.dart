@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AddExpenseForm extends StatefulWidget {
-  // callback функцию onSubmit(ExpenseModel model);
+  final void Function(ExpenseModel model) onSubmit;
 
-  const AddExpenseForm({super.key});
+  const AddExpenseForm({super.key, required this.onSubmit});
 
   @override
   State<AddExpenseForm> createState() => _AddExpenseFormState();
@@ -49,8 +49,9 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 48, 24, 24),
       child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: () {
-          FocusScope.of(context).unfocus();
+          FocusScope.of(context).unfocus(); // Убираем фокус с полей ввода
         },
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -119,24 +120,49 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
                   flex: 1,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
-                    }, 
-                    child: Text("Отменить")
+                      Navigator.of(context).pop(); // Закрыть bottom sheet
+                    },
+                    child: Text("Отменить"),
                   ),
                 ),
                 Expanded(
                   flex: 1,
                   child: ElevatedButton(
                     onPressed: () {
-                      // widget.onSubmit(
-                      //  ExpenseModel(
-                      //     title: "Курсы Flutter",
-                      //     amount: 50,
-                      //     date: DateTime.now(),
-                      //     category: Category.work,
-                      //  ),
-                      // );
-                      Navigator.of(context).pop();
+                      bool isDataIncorrect = titleController.text.isEmpty ||
+                          amountController.text.isEmpty ||
+                          selectedDate == null ||
+                          selectedCategory == null;
+                      if (isDataIncorrect) {
+                        showDialog(
+                          context: context, 
+                          builder: (context) {
+                            return AlertDialog(
+                              title: Text("Неверный ввод"),
+                              content: Text("Пожалуйста, убедитесь, что введены корректные название, сумма, дата и категория."),
+                              actions: [
+                                TextButton(
+                                  onPressed: (){
+                                    Navigator.of(context).pop(); // закрыть диалоговое окошко
+                                  }, 
+                                  child: Text("Хорошо"),
+                                )
+                              ],
+                            );
+                          },
+                        );
+                        return;
+                      }
+
+                      widget.onSubmit(
+                        ExpenseModel(
+                          title: titleController.text,
+                          amount: double.parse(amountController.text),
+                          date: selectedDate!,
+                          category: selectedCategory!,
+                        ),
+                      );
+                      Navigator.of(context).pop(); // Закрыть bottom sheet
                     },
                     child: Text("Сохранить расходы"),
                   ),
