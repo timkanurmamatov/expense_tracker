@@ -1,9 +1,11 @@
+//import 'package:expense_tracker/models/expense_model.dart';
 import 'package:expense_tracker/models/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class ExpenseAdd extends StatefulWidget {
-  const ExpenseAdd({super.key});
+  final void Function(ExpenseModel model) onSubmit;
+  const ExpenseAdd({super.key, required this.onSubmit});
 
   @override
   State<ExpenseAdd> createState() => _ExpenseAddState();
@@ -14,19 +16,18 @@ class _ExpenseAddState extends State<ExpenseAdd> {
   final TextEditingController _controllerSumary = TextEditingController();
   DateTime? date;
   String dateUser = 'Дата не выбрана';
-  String testDown = 'food';
-  List<String> testDrop = ['food', 'travel', 'leisure', 'work'];
-  // List<ExpenseModel> expenseAdd = [];
+  Category? selectCat = Category.values.first;
 
   Future<void> _dateTime() async {
+    final DateTime now = DateTime.now();
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2026),
+      initialDate: date ?? now,
+      firstDate: DateTime(now.year - 1, now.month, now.day),
+      lastDate: now,
     );
     setState(() {
-      date = picked;
+      date = picked ?? date;
       if (date != null) {
         dateUser = DateFormat.yMd().format(date!);
       } else {
@@ -35,33 +36,10 @@ class _ExpenseAddState extends State<ExpenseAdd> {
     });
   }
 
-  // @override
-  // void initState() {
-  //   String test = _controllerSumary.text;
-  //   double testParse = double.parse(test);
-  //   expenseAdd = [
-  //     ExpenseModel(
-  //       title: _controllerName.text,
-  //       amount: testParse,
-  //       category: _testCategory()!,
-  //       date: date!,
-  //     ),
-  //   ];
-  //   super.initState();
-  // }
-
-  // Category? _testCategory() {
-  //   switch (testDown) {
-  //     case 'food':
-  //       return Category.food;
-  //     case 'travel':
-  //       return Category.travel;
-  //     case 'leisure':
-  //       return Category.leisure;
-  //     case 'work':
-  //       return Category.work;
-  //   }
-  // }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +53,7 @@ class _ExpenseAddState extends State<ExpenseAdd> {
           TextField(
             controller: _controllerName,
             decoration: InputDecoration(labelText: 'Название'),
+            maxLength: 40,
           ),
           //Expense sumary and date
           Row(
@@ -83,7 +62,10 @@ class _ExpenseAddState extends State<ExpenseAdd> {
                 width: 100,
                 child: TextField(
                   controller: _controllerSumary,
-                  decoration: InputDecoration(labelText: 'Сумма'),
+                  decoration: InputDecoration(
+                    labelText: 'Сумма',
+                    prefixText: '\$',
+                  ),
                 ),
               ),
               Spacer(),
@@ -102,32 +84,21 @@ class _ExpenseAddState extends State<ExpenseAdd> {
             spacing: 20,
             children: [
               DropdownButton(
-                value: testDown,
-                icon: Icon(Icons.arrow_drop_down),
-                items:
-                    testDrop.map((list) {
-                      return DropdownMenuItem(value: list, child: Text(list));
-                    }).toList(),
+                value: selectCat,
+                elevation: 15,
                 onChanged: (listCategory) {
                   setState(() {
-                    testDown = listCategory!;
+                    selectCat = listCategory;
                   });
                 },
+                items:
+                    Category.values.map((list) {
+                      return DropdownMenuItem(
+                        value: list,
+                        child: Text(list.title),
+                      );
+                    }).toList(),
               ),
-              //////////////////////////
-              // DropdownButton(
-              //   value: testIcon,
-              //   icon: Icon(Icons.arrow_drop_down),
-              //   items:
-              //       testIcon.map((list) {
-              //         return DropdownMenuItem(value: list, child: Icon(list));
-              //       }).toList(),
-              //   onChanged: (listCategory) {
-              //     setState(() {
-              //       testIcon = listCategory!;
-              //     });
-              //   },
-              // ),
               Spacer(),
               TextButton(
                 onPressed: () {
@@ -138,6 +109,14 @@ class _ExpenseAddState extends State<ExpenseAdd> {
               ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
+                  widget.onSubmit(
+                    ExpenseModel(
+                      title: _controllerName.text,
+                      amount: double.parse(_controllerSumary.text),
+                      date: date!,
+                      category: selectCat!,
+                    ),
+                  );
                 },
                 child: Text('Сохранить'),
               ),

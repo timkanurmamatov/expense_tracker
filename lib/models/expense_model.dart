@@ -20,7 +20,7 @@ class ExpenseModel {
 
 enum Category { food, travel, leisure, work }
 
-extension CategoryIconExtension on Category {
+extension CategoryExtension on Category {
   IconData get icon {
     switch (this) {
       case Category.food:
@@ -31,6 +31,18 @@ extension CategoryIconExtension on Category {
         return Icons.movie;
       case Category.work:
         return Icons.work;
+    }
+  }
+  String get title {
+    switch (this) {
+      case Category.food:
+        return 'Food';
+      case Category.travel:
+        return 'Travel';
+      case Category.leisure:
+        return 'Leisure';
+      case Category.work:
+        return 'Work';
     }
   }
 }

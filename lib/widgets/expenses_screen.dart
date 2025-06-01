@@ -22,24 +22,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         date: DateTime.now(),
         category: Category.work,
       ),
-      ExpenseModel(
-        title: "Кинотеатр",
-        amount: 15.55,
-        date: DateTime.now(),
-        category: Category.leisure,
-      ),
-      ExpenseModel(
-        title: "Курсы Flutter",
-        amount: 50,
-        date: DateTime.now(),
-        category: Category.travel,
-      ),
-      ExpenseModel(
-        title: "Кинотеатр",
-        amount: 15.55,
-        date: DateTime.now(),
-        category: Category.food,
-      ),
     ];
     super.initState();
   }
@@ -98,7 +80,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         //isScrollControlled: true,
         context: context,
         builder: (BuildContext context) {
-          return ExpenseAdd();
+          return ExpenseAdd(
+            onSubmit: (ExpenseModel model) {
+              setState(() {
+                _expenses.add(model);
+              });
+            },
+          );
         },
       );
     });
