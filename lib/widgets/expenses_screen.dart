@@ -1,5 +1,6 @@
 import 'package:expense_tracker/models/expense_model.dart';
 import 'package:expense_tracker/widgets/add_expense_form.dart';
+import 'package:expense_tracker/widgets/chart.dart';
 import 'package:expense_tracker/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,26 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   void initState() {
     _expenses = [
       ExpenseModel(
-        title: "Курсы Flutter",
-        amount: 50,
+        title: "Expense 1",
+        amount: 100,
+        date: DateTime.now(),
+        category: Category.food,
+      ),
+      ExpenseModel(
+        title: "Expense 2",
+        amount: 123,
+        date: DateTime.now(),
+        category: Category.leisure,
+      ),
+      ExpenseModel(
+        title: "Expense 3",
+        amount: 234,
+        date: DateTime.now(),
+        category: Category.travel,
+      ),
+      ExpenseModel(
+        title: "Expense 4",
+        amount: 345,
         date: DateTime.now(),
         category: Category.work,
       ),
@@ -42,14 +61,14 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     });
 
     // ScaffoldMessenger.of(context).clearSnackBars(); // если нужно очистить предыдущие снек бары
-    
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text("Расходы удалены."),
         duration: Duration(seconds: 3),
         action: SnackBarAction(
-          label: "Отменить", 
-          onPressed: (){
+          label: "Отменить",
+          onPressed: () {
             setState(() {
               // При нажатии на 'Отменить', возвращаем удаленный расход в ту же позицию (ранее записанную)
               _expenses.insert(expenseIndex, expense);
@@ -67,15 +86,13 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         title: Text("Трекер расходов"),
         actions: [
           IconButton(
-            icon: Icon(Icons.add), 
-            onPressed: (){
+            icon: Icon(Icons.add),
+            onPressed: () {
               showModalBottomSheet(
                 isScrollControlled: true,
-                context: context, 
+                context: context,
                 builder: (context) {
-                  return AddExpenseForm(
-                    onSubmit: _addExpense,
-                  );
+                  return AddExpenseForm(onSubmit: _addExpense);
                 },
               );
             },
@@ -88,21 +105,21 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              width: double.infinity,
-              color: Colors.amber,
-              child: Text(
-                "Инфографика", 
-                style: TextStyle(fontSize: 35),
-              ),
+            Expanded(
+              flex: 1,
+              child: Chart(expenses: _expenses),
             ),
             Expanded(
-              child: _expenses.isEmpty 
-                ? Center(child: Text("Расходы не найдены. Начните добавлять")) 
-                : ExpenseList(
-                  expenses: _expenses,
-                  onRemoveExpense: _removeExpense,
-                ),
+              flex: 3,
+              child:
+                  _expenses.isEmpty
+                      ? Center(
+                        child: Text("Расходы не найдены. Начните добавлять"),
+                      )
+                      : ExpenseList(
+                        expenses: _expenses,
+                        onRemoveExpense: _removeExpense,
+                      ),
             ),
           ],
         ),

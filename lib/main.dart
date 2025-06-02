@@ -14,7 +14,7 @@ void main() {
         cardTheme: CardTheme().copyWith(
           color: Color.fromARGB(255, 165, 200, 216),
           elevation: 8,
-          shadowColor: Colors.pink
+          shadowColor: Colors.pink,
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
