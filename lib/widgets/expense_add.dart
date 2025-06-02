@@ -18,6 +18,8 @@ class _ExpenseAddState extends State<ExpenseAdd> {
   String dateUser = 'Дата не выбрана';
   Category? selectCat = Category.values.first;
 
+  // СДЕЛАЙ АЛЕРТДИАЛОГ ВАЛИДАЦИЯ
+
   Future<void> _dateTime() async {
     final DateTime now = DateTime.now();
     final DateTime? picked = await showDatePicker(

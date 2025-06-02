@@ -63,7 +63,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
               alignment: Alignment.center,
               child: Text("Инфографика", style: TextStyle(fontSize: 35)),
             ),
-            Expanded(child: ExpenseList(expenses: _expenses)),
+            Expanded(
+              child: ExpenseList(expenses: _expenses, onRemoveExp: _removeExp),
+            ),
           ],
         ),
       ),
@@ -90,5 +92,27 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         },
       );
     });
+  }
+
+  void _removeExp(ExpenseModel removeExp) {
+    final int expIndex = _expenses.indexOf(removeExp);
+    setState(() {
+      _expenses.remove(removeExp);
+    });
+    //ScaffoldMessenger.of(context).clearSnackBars(); //Для очистки предыдушего снекбара
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('Отменить удаление?'),
+        duration: Duration(seconds: 5),
+        action: SnackBarAction(
+          label: 'Да',
+          onPressed: () {
+            setState(() {
+              _expenses.insert(expIndex, removeExp);
+            });
+          },
+        ),
+      ),
+    );
   }
 }
