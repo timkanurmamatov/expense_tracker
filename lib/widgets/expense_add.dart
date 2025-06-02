@@ -18,8 +18,6 @@ class _ExpenseAddState extends State<ExpenseAdd> {
   String dateUser = 'Дата не выбрана';
   Category? selectCat = Category.values.first;
 
-  // СДЕЛАЙ АЛЕРТДИАЛОГ ВАЛИДАЦИЯ
-
   Future<void> _dateTime() async {
     final DateTime now = DateTime.now();
     final DateTime? picked = await showDatePicker(
@@ -110,7 +108,33 @@ class _ExpenseAddState extends State<ExpenseAdd> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  bool isCorrect =
+                      _controllerName.text.isEmpty ||
+                      _controllerSumary.text.isEmpty ||
+                      date == null ||
+                      selectCat == null;
+                  if (isCorrect) {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Неверный ввод'),
+                          content: Text(
+                            "Пожалуйста, убедитесь, что введены корректные название, сумма, дата и категория.",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text('Хорошо'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    return;
+                  }
                   widget.onSubmit(
                     ExpenseModel(
                       title: _controllerName.text,
@@ -119,6 +143,7 @@ class _ExpenseAddState extends State<ExpenseAdd> {
                       category: selectCat!,
                     ),
                   );
+                  Navigator.pop(context);
                 },
                 child: Text('Сохранить'),
               ),
