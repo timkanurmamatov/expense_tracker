@@ -45,6 +45,12 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     super.initState();
   }
 
+
+  // 100, 200, 300 => 600
+  // 100 / 600 => 1/6 => 0.1
+  // 200 / 600 => 2/6
+  // 300 / 600 => 3/6
+
   void _addExpense(ExpenseModel expense) {
     setState(() {
       _expenses.add(expense);
@@ -60,7 +66,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _expenses.remove(expense);
     });
 
-    // ScaffoldMessenger.of(context).clearSnackBars(); // если нужно очистить предыдущие снек бары
+    ScaffoldMessenger.of(context).clearSnackBars(); // если нужно очистить предыдущие снек бары
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
