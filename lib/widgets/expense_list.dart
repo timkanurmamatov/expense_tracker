@@ -28,7 +28,7 @@ class ExpenseList extends StatelessWidget {
           ),
           child: ExpenseListTile(
             expense: expenses[index],
-            color: index % 2 == 0 ? Colors.amberAccent : Colors.deepOrangeAccent,
+            //color: index % 2 == 0 ? Colors.amberAccent : Colors.deepOrangeAccent,
           ),
         );
       },

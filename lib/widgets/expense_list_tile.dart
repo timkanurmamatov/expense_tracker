@@ -5,12 +5,12 @@ import 'package:intl/intl.dart';
 
 class ExpenseListTile extends StatelessWidget {
   final ExpenseModel expense;
-  final Color color;
+  //final Color color;
 
   const ExpenseListTile({
     super.key,
     required this.expense,
-    required this.color,
+    //required this.color,
   });
 
   @override
@@ -18,7 +18,7 @@ class ExpenseListTile extends StatelessWidget {
     //final DateTime date = expense.date;
     final String formattedDate = DateFormat.yMd().format(expense.date);
     return Card(
-      color: color,
+      //color: color,
       elevation: 10,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

@@ -1,4 +1,5 @@
 import 'package:expense_tracker/models/expense_model.dart';
+import 'package:expense_tracker/widgets/chart.dart';
 import 'package:expense_tracker/widgets/expense_add.dart';
 import 'package:expense_tracker/widgets/expense_list.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,12 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   @override
   void initState() {
     _expenses = [
-      ExpenseModel(
-        title: "Курсы Flutter",
-        amount: 50,
-        date: DateTime.now(),
-        category: Category.work,
-      ),
+      // ExpenseModel(
+      //   title: "Курсы Flutter",
+      //   amount: 50,
+      //   date: DateTime.now(),
+      //   category: Category.work,
+      // ),
     ];
     super.initState();
   }
@@ -30,8 +31,8 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigoAccent,
-        foregroundColor: Colors.white,
+        // backgroundColor: Colors.indigoAccent,
+        // foregroundColor: Colors.white,
         title: Text("Трекер расходов"),
         centerTitle: true,
 
@@ -52,19 +53,22 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              width: double.infinity,
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              alignment: Alignment.center,
-              child: Text("Инфографика", style: TextStyle(fontSize: 35)),
-            ),
+            Expanded( flex: 1, child: Chart(),),
             Expanded(
-              child: ExpenseList(expenses: _expenses, onRemoveExp: _removeExp),
+              flex: 3,
+              child:
+                  _expenses.isEmpty
+                      ? Center(
+                        child: Image.asset(
+                          'assets/images/notepad.png',
+                          height: 150,
+                          width: 150,
+                        ),
+                      )
+                      : ExpenseList(
+                        expenses: _expenses,
+                        onRemoveExp: _removeExp,
+                      ),
             ),
           ],
         ),
