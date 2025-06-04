@@ -88,9 +88,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Трекер расходов"),
@@ -111,49 +108,40 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-        child:
-            width < 500
-                ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(child: Chart(expenses: _expenses)),
-                    Expanded(
-                      flex: 3,
-                      child:
-                          _expenses.isEmpty
-                              ? Center(
-                                child: Text(
-                                  "Расходы не найдены. Начните добавлять",
-                                ),
-                              )
-                              : ExpenseList(
-                                expenses: _expenses,
-                                onRemoveExpense: _removeExpense,
-                              ),
-                    ),
-                  ],
-                )
-                : Row(
-                  children: [
-                    Expanded(child: Chart(expenses: _expenses)),
-                    Expanded(
-                      child:
-                          _expenses.isEmpty
-                              ? Center(
-                                child: Text(
-                                  "Расходы не найдены. Начните добавлять",
-                                ),
-                              )
-                              : ExpenseList(
-                                expenses: _expenses,
-                                onRemoveExpense: _removeExpense,
-                              ),
-                    ),
-                  ],
-                ),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          final chart = Chart(expenses: _expenses);
+          final listView =
+              _expenses.isEmpty
+                  ? Center(child: Text("Расходы не найдены. Начните добавлять"))
+                  : ExpenseList(
+                    expenses: _expenses,
+                    onRemoveExpense: _removeExpense,
+                  );
+
+          if (constraints.maxWidth > constraints.maxHeight) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [Expanded(child: chart), Expanded(child: listView)],
+              ),
+            );
+          } else {
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(child: chart),
+                  Expanded(flex: 3, child: listView),
+                ],
+              ),
+            );
+          }
+        },
       ),
     );
   }
