@@ -45,7 +45,6 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     super.initState();
   }
 
-
   // 100, 200, 300 => 600
   // 100 / 600 => 1/6 => 0.1
   // 200 / 600 => 2/6
@@ -66,7 +65,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       _expenses.remove(expense);
     });
 
-    ScaffoldMessenger.of(context).clearSnackBars(); // если нужно очистить предыдущие снек бары
+    ScaffoldMessenger.of(
+      context,
+    ).clearSnackBars(); // если нужно очистить предыдущие снек бары
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -87,6 +88,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Трекер расходов"),
@@ -96,7 +100,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
             onPressed: () {
               showModalBottomSheet(
                 isScrollControlled: true,
+                useSafeArea: true,
                 context: context,
+                constraints: BoxConstraints.expand(),
                 builder: (context) {
                   return AddExpenseForm(onSubmit: _addExpense);
                 },
@@ -107,28 +113,47 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 1,
-              child: Chart(expenses: _expenses),
-            ),
-            Expanded(
-              flex: 3,
-              child:
-                  _expenses.isEmpty
-                      ? Center(
-                        child: Text("Расходы не найдены. Начните добавлять"),
-                      )
-                      : ExpenseList(
-                        expenses: _expenses,
-                        onRemoveExpense: _removeExpense,
-                      ),
-            ),
-          ],
-        ),
+        child:
+            width < 500
+                ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(child: Chart(expenses: _expenses)),
+                    Expanded(
+                      flex: 3,
+                      child:
+                          _expenses.isEmpty
+                              ? Center(
+                                child: Text(
+                                  "Расходы не найдены. Начните добавлять",
+                                ),
+                              )
+                              : ExpenseList(
+                                expenses: _expenses,
+                                onRemoveExpense: _removeExpense,
+                              ),
+                    ),
+                  ],
+                )
+                : Row(
+                  children: [
+                    Expanded(child: Chart(expenses: _expenses)),
+                    Expanded(
+                      child:
+                          _expenses.isEmpty
+                              ? Center(
+                                child: Text(
+                                  "Расходы не найдены. Начните добавлять",
+                                ),
+                              )
+                              : ExpenseList(
+                                expenses: _expenses,
+                                onRemoveExpense: _removeExpense,
+                              ),
+                    ),
+                  ],
+                ),
       ),
     );
   }
