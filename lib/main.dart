@@ -22,7 +22,7 @@ void main() {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Colors.black),
         ),
-        cardTheme: CardTheme().copyWith(
+        cardTheme: CardThemeData().copyWith(
           color: Color.fromARGB(255, 165, 200, 216),
           elevation: 8,
           shadowColor: Colors.amberAccent,
@@ -30,7 +30,7 @@ void main() {
       ),
       darkTheme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.blueGrey,
-        cardTheme: CardTheme().copyWith(
+        cardTheme: CardThemeData().copyWith(
           elevation: 15,
           shadowColor: Colors.amberAccent,
         ),

@@ -53,7 +53,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded( flex: 1, child: Chart(),),
+            Expanded( flex: 1, child: Chart(expense: _expenses,),),
             Expanded(
               flex: 3,
               child:
