@@ -17,60 +17,80 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   @override
   void initState() {
     _expenses = [
-      // ExpenseModel(
-      //   title: "Курсы Flutter",
-      //   amount: 50,
-      //   date: DateTime.now(),
-      //   category: Category.work,
-      // ),
+      ExpenseModel(
+        title: "Expense 1",
+        amount: 100,
+        date: DateTime.now(),
+        category: Category.food,
+      ),
+      ExpenseModel(
+        title: "Expense 2",
+        amount: 123,
+        date: DateTime.now(),
+        category: Category.leisure,
+      ),
+      ExpenseModel(
+        title: "Expense 3",
+        amount: 234,
+        date: DateTime.now(),
+        category: Category.travel,
+      ),
+      ExpenseModel(
+        title: "Expense 4",
+        amount: 345,
+        date: DateTime.now(),
+        category: Category.work,
+      ),
     ];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    //final test = MediaQuery.of(context).size.width; // Напиример чтобы узнать размеры экрана
     return Scaffold(
       appBar: AppBar(
         // backgroundColor: Colors.indigoAccent,
         // foregroundColor: Colors.white,
         title: Text("Трекер расходов"),
         centerTitle: true,
-
+    
         actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: _buildModal,
-            style: ButtonStyle(
-              foregroundColor: WidgetStateProperty.all(Colors.white),
-            ),
-          ),
+          IconButton(icon: Icon(Icons.add), onPressed: _buildModal),
           SizedBox(width: 10),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded( flex: 1, child: Chart(expense: _expenses,),),
-            Expanded(
-              flex: 3,
-              child:
-                  _expenses.isEmpty
-                      ? Center(
-                        child: Image.asset(
-                          'assets/images/notepad.png',
-                          height: 150,
-                          width: 150,
-                        ),
-                      )
-                      : ExpenseList(
-                        expenses: _expenses,
-                        onRemoveExp: _removeExp,
+      body: SafeArea(
+        bottom: false,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            final chart = Chart(expense: _expenses);
+            final listExp =
+                _expenses.isEmpty
+                    ? Center(
+                      child: Image.asset(
+                        'assets/images/notepad.png',
+                        height: 150,
+                        width: 150,
                       ),
-            ),
-          ],
+                    )
+                    : ExpenseList(expenses: _expenses, onRemoveExp: _removeExp);
+            if (constraints.maxWidth > constraints.maxHeight) {
+              return Padding(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  children: [Expanded(flex: 1, child: chart), Expanded(flex: 1, child: listExp)],
+                ),
+              );
+            } else {
+              return Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  children: [Expanded(flex: 1, child: chart), Expanded(flex: 2,child: listExp)],
+                ),
+              );
+            }
+          },
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -83,7 +103,9 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
   void _buildModal() {
     setState(() {
       showModalBottomSheet(
-        //isScrollControlled: true,
+        isScrollControlled: true,
+        useSafeArea: true,
+        constraints: BoxConstraints.expand(),
         context: context,
         builder: (BuildContext context) {
           return ExpenseAdd(

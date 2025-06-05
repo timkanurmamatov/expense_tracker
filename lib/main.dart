@@ -2,6 +2,10 @@ import 'package:expense_tracker/widgets/expenses_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  // Для Блокировки поворота экрана
+  // void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     MaterialApp(
       home: ExpensesScreen(),
@@ -22,24 +26,27 @@ void main() {
         textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: Colors.black),
         ),
+        // iconButtonTheme: IconButtonThemeData(
+        //   style: IconButton.styleFrom(foregroundColor: Colors.black),
+        // ),
         cardTheme: CardThemeData().copyWith(
           color: Color.fromARGB(255, 165, 200, 216),
           elevation: 8,
-          shadowColor: Colors.amberAccent,
+          shadowColor: Colors.orangeAccent,
         ),
       ),
       darkTheme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: Colors.blueGrey,
         cardTheme: CardThemeData().copyWith(
           elevation: 15,
-          shadowColor: Colors.amberAccent,
+          shadowColor: Colors.orangeAccent,
         ),
         appBarTheme: AppBarTheme().copyWith(
-          backgroundColor: const Color.fromARGB(255, 30, 62, 117),
+          backgroundColor: const Color.fromARGB(255, 32, 41, 56),
           foregroundColor: Colors.white,
         ),
         floatingActionButtonTheme: FloatingActionButtonThemeData().copyWith(
-          backgroundColor: const Color.fromARGB(255, 30, 62, 117),
+          backgroundColor: const Color.fromARGB(255, 32, 41, 56),
         ),
       ),
     ),

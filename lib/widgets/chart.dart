@@ -34,6 +34,7 @@ class Chart extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(20),
         child: Row(
+          spacing: 15,
           children: List.generate(Category.values.length, (index) {
             return Expanded(
               child: CharBar(

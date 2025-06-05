@@ -12,6 +12,7 @@ class CharBar extends StatelessWidget {
         Expanded(
           child: FractionallySizedBox(
             heightFactor: heightFactor,
+            alignment: FractionalOffset.bottomCenter,
             child: Container(
               decoration: BoxDecoration(
                 color: Colors.deepOrangeAccent,
@@ -21,7 +22,7 @@ class CharBar extends StatelessWidget {
           ),
         ),
         SizedBox(height: 10),
-        Icon(icon, color: Theme.of(context).cardColor),
+        Icon(icon),
       ],
     );
   }
