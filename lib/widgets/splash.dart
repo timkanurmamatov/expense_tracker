@@ -11,29 +11,44 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  final List<Color> color = [
+    Colors.greenAccent, 
+    Colors.lightBlue,
+  ];
+  //ToDo: как сделать движушийся градиент
+
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () => context.go('/home'));
+    Timer(Duration(seconds: 5), () => context.go('/home'));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: color,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/splash.png', width: 150, height: 150),
+              //Spacer(flex: 1),
+              Image.asset('assets/images/splash.png', width: 120, height: 120),
               Text(
-                'Запись расходов',
+                'EXPR',
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
+                  color: Colors.orangeAccent,
+                  fontSize: 25,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              //Spacer(flex: 2,)
             ],
           ),
         ),
