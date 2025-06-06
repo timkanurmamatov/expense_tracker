@@ -125,7 +125,7 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
     setState(() {
       _expenses.remove(removeExp);
     });
-    //ScaffoldMessenger.of(context).clearSnackBars(); //Для очистки предыдушего снекбара
+    ScaffoldMessenger.of(context).clearSnackBars(); //Для очистки предыдушего снекбара
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text('Отменить удаление?'),
