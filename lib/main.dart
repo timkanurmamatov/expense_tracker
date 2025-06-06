@@ -1,4 +1,4 @@
-import 'package:expense_tracker/widgets/expenses_screen.dart';
+import 'package:expense_tracker/navigations/go_route.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -7,8 +7,8 @@ void main() {
   // WidgetsFlutterBinding.ensureInitialized();
   // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
-    MaterialApp(
-      home: ExpensesScreen(),
+    MaterialApp.router(
+      routerConfig: router,
       theme: ThemeData().copyWith(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Color.fromARGB(255, 165, 200, 216),

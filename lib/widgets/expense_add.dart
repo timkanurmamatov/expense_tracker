@@ -93,8 +93,8 @@ class _ExpenseAddState extends State<ExpenseAdd> {
         },
         child: LayoutBuilder( 
           builder: (context, constraints) {
-            print(constraints.maxHeight);
-            print(constraints.maxWidth);
+            // print(constraints.maxHeight);
+            // print(constraints.maxWidth);
             if(constraints.maxWidth > constraints.maxHeight) {
               return Column(
                 spacing: 20,
