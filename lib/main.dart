@@ -11,7 +11,7 @@ void main() {
           backgroundColor: Color.fromARGB(255, 43, 169, 227),
           foregroundColor: Colors.black,
         ),
-        cardTheme: CardTheme().copyWith(
+        cardTheme: CardThemeData().copyWith(
           color: Color.fromARGB(255, 165, 200, 216),
           elevation: 8,
           shadowColor: Colors.pink,
@@ -31,7 +31,7 @@ void main() {
         ),
       ),
       darkTheme: ThemeData.dark().copyWith(
-        cardTheme: CardTheme().copyWith(
+        cardTheme: CardThemeData().copyWith(
           elevation: 8,
           shadowColor: Colors.pink
         ),
