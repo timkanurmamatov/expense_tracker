@@ -1,6 +1,8 @@
 import 'package:expense_tracker/models/expense_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:io';
 
 class AddExpenseForm extends StatefulWidget {
   final void Function(ExpenseModel model) onSubmit;
@@ -44,6 +46,32 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
     return format.format(date);
   }
 
+  void _showAdaptiveDialog({Widget? title, Widget? content, required List<Widget> actions}) {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: title,
+            content: content,
+            actions: actions,
+          );
+        },
+      );
+    } else if (Platform.isIOS) {
+      showCupertinoDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: title,
+            content: content,
+            actions: actions,
+          );
+        },
+      );
+    }
+  }
+
   void _onSavePressed() {
     bool isDataIncorrect =
         titleController.text.isEmpty ||
@@ -51,10 +79,7 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
         selectedDate == null ||
         selectedCategory == null;
     if (isDataIncorrect) {
-      showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
+      _showAdaptiveDialog(
             title: Text("Неверный ввод"),
             content: Text(
               "Пожалуйста, убедитесь, что введены корректные название, сумма, дата и категория.",
@@ -67,9 +92,8 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
                 child: Text("Хорошо"),
               ),
             ],
-          );
-        },
       );
+
       return;
     }
 
